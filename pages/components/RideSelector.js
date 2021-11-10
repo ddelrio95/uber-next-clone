@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer'
 import React, { useEffect, useState } from 'react'
 import tw from 'tailwind-styled-components'
 import { carList } from '../data/carList'
@@ -9,10 +8,11 @@ const RideSelector = ({ pickupCoordinates, dropoffCoordinates }) => {
   // get ride duration from MAPBOX API
   // pickupCoordinates
   // dropoffCordinates
+
   useEffect(() => {
     rideDuration = fetch(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},
-      ${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?access_token=pk.eyJ1IjoiZHJha29zSIsImiOiJja2x1YW9jdWswOHcyMnVvZX21aTVqcHBnIn0.G0SLu_zwAEU9_q8FIkHea2`
+      ${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?access_token=pk.eyJ1IjoiZGRlbHJpbzk1IiwiYSI6ImNrdmxwdW9zeTFhdXgydXFnOHJhaGQyamEifQ.ZiWpY6lvj6i918eaXM85tA`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -22,16 +22,17 @@ const RideSelector = ({ pickupCoordinates, dropoffCoordinates }) => {
 
   return (
     <Wrapper>
-      <Title>Choose a ride, or swipe up for more</Title>
+      <Title> Choose a ride, or swipe up for more </Title>{' '}
       <CarList>
+        {' '}
         {carList.map((car, index) => (
           <Car key={index}>
             <CarImage src={car.imgUrl} />
             <CarDetails>
-              <Service>{car.service}</Service>
-              <Time>5 min away</Time>
+              <Service> {car.service} </Service>
+              <Time> 5 min away </Time>
             </CarDetails>
-            <Price>{'$' + (rideDuration * car.multiplier).toFixed(2)}</Price>
+            <Price> {'$' + (rideDuration * car.multiplier).toFixed(2)} </Price>
           </Car>
         ))}
       </CarList>
