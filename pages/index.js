@@ -4,6 +4,7 @@ import Image from 'next/image'
 import tw from 'tailwind-styled-components'
 import Map from './components/Map'
 import Link from 'next/link'
+import { auth } from '../firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useRouter } from 'next/router'
 
@@ -33,7 +34,10 @@ export default function Home() {
           <UberLogo src='https://i.ibb.co/84stgjq/uber-technologies-new-20218114.jpg' />
           <Profile>
             <Name>{user && user.name}</Name>
-            <UserImage src={user && user.photoURL} />
+            <UserImage
+              src={user && user.photoURL}
+              onClick={() => signOut(auth)}
+            />
           </Profile>
         </Header>
 
@@ -80,7 +84,7 @@ const Name = tw.div`
 mr-4 w-20 text-sm
 `
 const UserImage = tw.img`
-h-12 w-12 rounded-full border border-gray-200 p-px
+h-12 w-12 rounded-full border border-gray-200 p-px cursor-pointer
 `
 const ActionButtons = tw.div`
 flex
